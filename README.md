@@ -9,5 +9,5 @@ Tested on RHEL 10.0, 10.1, 9.7, 9.6 and 8.10
 3. make the script executable
 4. create an `images/` subdirectory
 5. go to section "Virtualization Images" at https://access.redhat.com/downloads/content/rhel
-6. download qcow images to the `images/` directory
+6. download qcow images or put images generated with image-builder in the `images/`  directory
 7. run the script
