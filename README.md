@@ -2,7 +2,7 @@
 
 Script to automaticaly create VMs with RHEL KVM Guest Image 
 
-Tested on RHEL 10.0, 9.6 and 8.10
+Tested on RHEL 10.0, 10.1, 9.7, 9.6 and 8.10
 
 1. clone the depot
 2. customize DESTINATION and BRIDGE variables in the script
