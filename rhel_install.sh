@@ -1,14 +1,14 @@
 #!/bin/bash
-# 2025 - Gilles MATEU
 
 #######################################
 # User customization
 #######################################
-# set PATH to your VM disk here
-DESTINATION=/$HOME/VirtualMachines/
+DESTINATION=/home/gmateu/VirtualMachines/
 
-# name of the network bridge for the VM
-BRIDGE=bridge0
+# specify a bridge device to force its usage 
+# comment the variable or set BRIDGE to "" to use the default network
+# ex: BRIDGE=virbr0
+# BRIDGE=virbr0
 
 #######################################
 # Main procedure
@@ -34,10 +34,15 @@ then
 fi
 mkdir iso
 
+#### Choose arch
+echo "Architecture"
+select arch in x86_64 aarch64 ; do break ; done
+ARCH=${arch=x86_64}
+
 #### Choose distribution
 echo "Distribution :"
 cd images
-select imagefile in $(ls *.qcow2 | sort ) ; do  break ; done
+select imagefile in $(ls *.qcow2 | grep ${ARCH} | sort ) ; do  break ; done
 cd ..
 IMAGE=${imagefile}
 
@@ -102,6 +107,14 @@ genisoimage -output iso/cloud-init.iso -volid cidata -joliet -rock iso/user-data
 cp images/${IMAGE} $HOME/VirtualMachines/${LOCALHOSTNAME}.qcow2
 qemu-img resize $HOME/VirtualMachines/${LOCALHOSTNAME}.qcow2 ${DISKSIZE}
 
+# Bridge device
+if [ "${BRIDGE}" == "" ]
+then
+  BRIDGE_OPTION=""
+else
+  BRIDGE_OPTION="--bridge ${BRIDGE}"
+fi
+
 echo
 echo "####################"
 echo " Ready to go!" 
@@ -110,5 +123,4 @@ echo "Use Ctrl-] to exit console"
 echo "use \"sudo virsh list --all\" to view VMs"
 echo "run the following command to install your VM:"
 echo
-echo sudo virt-install --memory ${MEMORY} --vcpus ${CPU} --name ${LOCALHOSTNAME} --disk $HOME/VirtualMachines/${LOCALHOSTNAME}.qcow2,device=disk,bus=virtio,format=qcow2 --disk iso/cloud-init.iso,device=cdrom --os-variant ${RELEASE} --virt-type kvm --graphics none --bridge ${BRIDGE} --import
-
+echo sudo virt-install --memory ${MEMORY} --vcpus ${CPU} --name ${LOCALHOSTNAME} --disk $HOME/VirtualMachines/${LOCALHOSTNAME}.qcow2,device=disk,bus=virtio,format=qcow2 --disk iso/cloud-init.iso,device=cdrom --os-variant ${RELEASE} --virt-type qemu --graphics none ${BRIDGE_OPTION} --arch ${ARCH} --import
