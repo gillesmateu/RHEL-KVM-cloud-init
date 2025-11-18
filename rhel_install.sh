@@ -3,7 +3,7 @@
 #######################################
 # User customization
 #######################################
-DESTINATION=/home/gmateu/VirtualMachines/
+DESTINATION=/$HOME/VirtualMachines/
 
 # specify a bridge device to force its usage 
 # comment the variable or set BRIDGE to "" to use the default network
