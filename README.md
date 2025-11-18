@@ -13,3 +13,7 @@ Tested on:
 5. go to section "Virtualization Images" at https://access.redhat.com/downloads/content/rhel
 6. download qcow images or put images generated with image-builder in the `images/`  directory
 7. run the script
+8. after install:
+   * halt the VM,
+   * remove cdrom,
+   * start the VM
