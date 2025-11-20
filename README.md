@@ -3,8 +3,9 @@
 Ugly script to automaticaly create VMs with RHEL KVM Guest Image 
 
 Tested on:
-* x86_64: RHEL 10.1, 10.0, 9.7, 9.6, 8.10
 * aarch64: RHEL 10.1
+* s390x: RHEL 10.1
+* x86_64: RHEL 10.1, 10.0, 9.7, 9.6, 8.10
 
 1. clone the depot
 2. customize DESTINATION and BRIDGE variables in the script
