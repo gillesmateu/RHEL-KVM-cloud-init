@@ -36,8 +36,8 @@ mkdir iso
 
 #### Choose arch
 echo "Architecture"
-select arch in x86_64 aarch64 ; do break ; done
-ARCH=${arch=x86_64}
+select arch in aarch64 s390x x86_64; do break ; done
+ARCH=${arch:x86_64}
 
 #### Choose distribution
 echo "Distribution :"
