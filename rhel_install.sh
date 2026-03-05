@@ -109,8 +109,8 @@ EOF
 
 genisoimage -output iso/cloud-init.iso -volid cidata -joliet -rock iso/user-data iso/meta-data
 
-cp images/${IMAGE} $HOME/VirtualMachines/${LOCALHOSTNAME}.qcow2
-qemu-img resize $HOME/VirtualMachines/${LOCALHOSTNAME}.qcow2 ${DISKSIZE}
+cp images/${IMAGE} ${DESTINATION}/${LOCALHOSTNAME}.qcow2
+qemu-img resize ${DESTINATION}/${LOCALHOSTNAME}.qcow2 ${DISKSIZE}
 
 # Bridge device
 if [ "${BRIDGE}" == "" ]
@@ -128,4 +128,4 @@ echo "Use Ctrl-] to exit console"
 echo "use \"sudo virsh list --all\" to view VMs"
 echo "run the following command to install your VM:"
 echo
-echo sudo virt-install --memory ${MEMORY} --vcpus ${CPU} --name ${LOCALHOSTNAME} --disk $HOME/VirtualMachines/${LOCALHOSTNAME}.qcow2,device=disk,bus=virtio,format=qcow2 --disk iso/cloud-init.iso,device=cdrom --os-variant ${RELEASE} --virt-type qemu --graphics none ${BRIDGE_OPTION} --arch ${ARCH} ${CPUMODEL} --import
+echo sudo virt-install --memory ${MEMORY} --vcpus ${CPU} --name ${LOCALHOSTNAME} --disk ${DESTINATION}/${LOCALHOSTNAME}.qcow2,device=disk,bus=virtio,format=qcow2 --disk iso/cloud-init.iso,device=cdrom --os-variant ${RELEASE} --virt-type qemu --graphics none ${BRIDGE_OPTION} --arch ${ARCH} ${CPUMODEL} --import
