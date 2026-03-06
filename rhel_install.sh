@@ -3,7 +3,7 @@
 #######################################
 # User customization
 #######################################
-DESTINATION=/$HOME/VirtualMachines/
+DESTINATION="$HOME/VirtualMachines/"
 
 # specify a bridge device to force its usage 
 # comment the variable or set BRIDGE to "" to use the default network
@@ -13,6 +13,11 @@ DESTINATION=/$HOME/VirtualMachines/
 #######################################
 # Main procedure
 #######################################
+if [ ! -d "${DESTINATION}" ]
+then
+  echo "${DESTINATION} not found"
+  exit 1
+fi
 
 # Check if images directory exists and contains images
 if [ ! -d images ]
